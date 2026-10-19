@@ -8,8 +8,7 @@
         :root {
             --cadi-navy: #1B2A4A;
             --cadi-green: #00A86B;
-            --cadi-light: #F4F7f9;
-            --cadi-dark: #0f182b;
+            --cadi-light: #F4F7F9;
             --white: #ffffff;
         }
 
@@ -30,7 +29,7 @@
             border-radius: 12px;
             box-shadow: 0 8px 24px rgba(0,0,0,0.15);
             width: 100%;
-            max-width: 750px;
+            max-width: 780px;
             overflow: hidden;
             border-top: 6px solid var(--cadi-green);
         }
@@ -44,7 +43,7 @@
 
         .header h1 {
             margin: 0;
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             letter-spacing: 0.5px;
         }
 
@@ -53,6 +52,19 @@
             color: var(--cadi-green);
             font-weight: bold;
             font-size: 0.95rem;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            height: 8px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: var(--cadi-green);
+            width: 0%;
+            transition: width 0.3s ease;
         }
 
         .content {
@@ -78,7 +90,7 @@
             color: var(--cadi-navy);
         }
 
-        input[type="text"], input[type="email"], select {
+        input[type="text"], input[type="email"] {
             width: 100%;
             padding: 12px;
             border: 2px solid #ddd;
@@ -88,7 +100,7 @@
             transition: border-color 0.3s;
         }
 
-        input:focus, select:focus {
+        input:focus {
             border-color: var(--cadi-green);
             outline: none;
         }
@@ -121,6 +133,14 @@
             line-height: 1.5;
         }
 
+        .question-meta {
+            font-size: 0.85rem;
+            color: var(--cadi-green);
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
         .options-group {
             display: flex;
             flex-direction: column;
@@ -135,6 +155,8 @@
             cursor: pointer;
             transition: all 0.2s;
             background: #fafafa;
+            display: flex;
+            align-items: center;
         }
 
         .option-card:hover {
@@ -143,7 +165,7 @@
         }
 
         .option-card input {
-            margin-right: 10px;
+            margin-right: 12px;
         }
 
         .certificate {
@@ -152,7 +174,6 @@
             text-align: center;
             background-color: #fff;
             border-radius: 8px;
-            position: relative;
         }
 
         .certificate h2 {
@@ -182,192 +203,12 @@
             font-size: 0.8rem;
             color: #777;
             text-align: center;
-            margin-top: 20px;
+            padding: 15px;
+            background-color: #fafafa;
+            border-top: 1px solid #eee;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="header">
-        <h1>C.A.D.I. BILINGUAL ACADEMY</h1>
-        <p>SIMULADOR TÁCTICO: MISIÓN CÓNICAS 11 — LA PARÁBOLA</p>
-    </div>
-
-    <div class="content">
-        <!-- Paso 0: Login -->
-        <div id="step-0" class="step active">
-            <h2>Acceso Estudiantil Institucional</h2>
-            <p>Ingrese sus datos para registrar la sesión de evaluación táctica:</p>
-            <div class="form-group">
-                <label for="student-name">Nombre Completo:</label>
-                <input type="text" id="student-name" placeholder="Ej. Juan Pérez">
-            </div>
-            <div class="form-group">
-                <label for="student-email">Correo Institucional (@cadi.edu.pa):</label>
-                <input type="email" id="student-email" placeholder="estudiante@cadi.edu.pa">
-            </div>
-            <button class="btn" onclick="startSimulation()">Iniciar Misión Táctica</button>
-        </div>
-
-        <!-- Paso 1: Decisión Vértice y Foco -->
-        <div id="step-1" class="step">
-            <h3>Fase 1: Alineación del Reflector Parabólico (ODS 9)</h3>
-            <div class="scenario-box">
-                Tras el evento sísmico en Las Tablas, se requiere reinstalar una antena parabólica de emergencia para restablecer la señal. Se conoce que el plato responde a la ecuación <strong>x² = 16y</strong>. ¿Dónde se debe posicionar el colector central (foco) y la estructura de soporte posterior (directriz)?
-            </div>
-            <div class="options-group">
-                <label class="option-card">
-                    <input type="radio" name="q1" value="A">
-                    Foco en F(0, 4) y Directriz en y = -4
-                </label>
-                <label class="option-card">
-                    <input type="radio" name="q1" value="B">
-                    Foco en F(4, 0) y Directriz en x = -4
-                </label>
-                <label class="option-card">
-                    <input type="radio" name="q1" value="C">
-                    Foco en F(0, 16) y Directriz en y = -16
-                </label>
-            </div>
-            <button class="btn" onclick="nextStep(1)">Registrar Decisión y Continuar</button>
-        </div>
-
-        <!-- Paso 2: Vértice V(h,k) -->
-        <div id="step-2" class="step">
-            <h3>Fase 2: Trazado del Arco de Soporte V(h,k)</h3>
-            <div class="scenario-box">
-                Para sostener el puente de paso seguro se ha diseñado un arco parabólico con vértice en <strong>V(2, -1)</strong>, eje de simetría paralelo al eje Y, abriendo hacia abajo con parámetro <strong>p = -2</strong>. ¿Cuál es la ecuación canónica correcta para el cálculo de resistencia?
-            </div>
-            <div class="options-group">
-                <label class="option-card">
-                    <input type="radio" name="q2" value="A">
-                    (x - 2)² = -8(y + 1)
-                </label>
-                <label class="option-card">
-                    <input type="radio" name="q2" value="B">
-                    (y + 1)² = -8(x - 2)
-                </label>
-                <label class="option-card">
-                    <input type="radio" name="q2" value="C">
-                    (x + 2)² = 8(y - 1)
-                </label>
-            </div>
-            <button class="btn" onclick="nextStep(2)">Registrar Decisión y Continuar</button>
-        </div>
-
-        <!-- Paso 3: Lado Recto y Cobertura -->
-        <div id="step-3" class="step">
-            <h3>Fase 3: Apertura y Lado Recto (LR)</h3>
-            <div class="scenario-box">
-                Se requiere verificar el ancho del haz de señal en la línea focal para garantizar que cubra a toda la comunidad. Para la antena modelada por <strong>x² = 24y</strong>, ¿cuál es la longitud total del lado recto (LR)?
-            </div>
-            <div class="options-group">
-                <label class="option-card">
-                    <input type="radio" name="q3" value="A">
-                    LR = 24 unidades
-                </label>
-                <label class="option-card">
-                    <input type="radio" name="q3" value="B">
-                    LR = 6 unidades
-                </label>
-                <label class="option-card">
-                    <input type="radio" name="q3" value="C">
-                    LR = 12 unidades
-                </label>
-            </div>
-            <button class="btn" onclick="nextStep(3)">Finalizar Misión y Generar Ficha</button>
-        </div>
-
-        <!-- Paso Final: Ficha de Evaluación Oficial -->
-        <div id="step-4" class="step">
-            <div class="certificate">
-                <h2>C.A.D.I. BILINGUAL ACADEMY</h2>
-                <p><strong>FICHA OFICIAL DE EVALUACIÓN TÁCTICA</strong></p>
-                <hr style="border: 1px solid #1B2A4A; margin: 15px 0;">
-                <p><strong>Estudiante:</strong> <span id="cert-name"></span></p>
-                <p><strong>Correo:</strong> <span id="cert-email"></span></p>
-                <p><strong>Fecha y Hora:</strong> <span id="cert-date"></span></p>
-
-                <div>Calificación Obtenida:</div>
-                <div class="score-badge"><span id="cert-score">0</span> / 100 pts</div>
-
-                <p><strong>Código Único de Verificación:</strong></p>
-                <div class="verification-code" id="cert-code">CADI-11-PAR-000000</div>
-
-                <p style="margin-top:20px; font-size:0.85rem; color:#555;">Adjunte una captura de esta ficha en Google Classroom para registrar su nota.</p>
-            </div>
-            <button class="btn" onclick="window.print()">Imprimir / Guardar en PDF</button>
-        </div>
-    </div>
-
-    <div class="footer-note">
-        Prof. Emmanuel Melgar — C.A.D.I. Bilingual Academy (Las Tablas)
-    </div>
-</div>
-
-<script>
-    let studentData = { name: '', email: '' };
-    let score = 0;
-
-    const correctAnswers = {
-        q1: 'A', // 25 pts
-        q2: 'A', // 25 pts
-        q3: 'A'  // 25 pts + 25 pts base por login
-    };
-
-    function startSimulation() {
-        const name = document.getElementById('student-name').value.trim();
-        const email = document.getElementById('student-email').value.trim();
-
-        if (!name || !email.endsWith('@cadi.edu.pa')) {
-            alert('Por favor ingrese su nombre completo y un correo válido con dominio @cadi.edu.pa');
-            return;
-        }
-
-        studentData.name = name;
-        studentData.email = email;
-        score += 25; // Puntaje base de participación
-
-        showStep(1);
-    }
-
-    function nextStep(currentStep) {
-        const selected = document.querySelector(`input[name="q${currentStep}"]:checked`);
-        if (!selected) {
-            alert('Por favor seleccione una opción antes de continuar.');
-            return;
-        }
-
-        if (selected.value === correctAnswers[`q${currentStep}`]) {
-            score += 25;
-        }
-
-        if (currentStep < 3) {
-            showStep(currentStep + 1);
-        } else {
-            generateCertificate();
-            showStep(4);
-        }
-    }
-
-    function showStep(stepNumber) {
-        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-        document.getElementById(`step-${stepNumber}`).classList.add('active');
-    }
-
-    function generateCertificate() {
-        document.getElementById('cert-name').innerText = studentData.name;
-        document.getElementById('cert-email').innerText = studentData.email;
-        document.getElementById('cert-score').innerText = score;
-
-        const now = new Date();
-        document.getElementById('cert-date').innerText = now.toLocaleString('es-PA');
-
-        const randomCode = 'CADI-11-PAR-' + Math.floor(100000 + Math.random() * 900000);
-        document.getElementById('cert-code').innerText = randomCode;
-    }
-</script>
-
-</body>
-</html>
