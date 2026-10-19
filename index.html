@@ -5,142 +5,111 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>C.A.D.I. Academy - Simulador de Cónicas 11°</title>
     <style>
-        :root {
-            --primary: #132247;
-            --accent: #0284C7;
-            --bg: #F8FAFC;
-            --card-bg: #FFFFFF;
-            --text: #0F172A;
-            --border: #CBD5E1;
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: var(--bg); color: var(--text); padding: 20px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+        body { background-color: #F8FAFC; color: #0F172A; padding: 20px; }
 
         header {
-            background-color: var(--primary);
+            background-color: #132247;
             color: white;
-            padding: 20px 30px;
-            border-radius: 12px;
+            padding: 16px 24px;
+            border-radius: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
-            box-shadow: 0 4px 12px rgba(19, 34, 71, 0.15);
         }
-
-        header h1 { font-size: 20px; font-weight: 800; letter-spacing: 0.5px; }
-        header p { font-size: 13px; color: #94A3B8; }
-        .badge { background: var(--accent); padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold; }
 
         .container {
             display: grid;
-            grid-template-columns: 340px 1fr;
+            grid-template-columns: 320px 1fr;
             gap: 20px;
         }
 
         .panel {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        }
-
-        .panel h2 {
-            font-size: 15px;
-            color: var(--primary);
-            border-bottom: 2px solid var(--bg);
-            padding-bottom: 8px;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            background: #FFFFFF;
+            border: 1px solid #CBD5E1;
+            border-radius: 10px;
+            padding: 18px;
         }
 
         .form-group { margin-bottom: 12px; }
-        .form-group label { display: block; font-size: 12px; font-weight: bold; color: #475569; margin-bottom: 4px; }
+        .form-group label { display: block; font-size: 12px; font-weight: bold; margin-bottom: 4px; }
         .form-group select, .form-group input {
             width: 100%;
-            padding: 8px 12px;
-            border: 1px solid var(--border);
+            padding: 8px;
+            border: 1px solid #CBD5E1;
             border-radius: 6px;
+        }
+
+        .results {
+            background: #F1F5F9;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 15px;
             font-size: 13px;
         }
 
-        .results-box {
-            background: #F1F5F9;
-            border-radius: 8px;
-            padding: 12px;
-            margin-top: 15px;
-            font-size: 12.5px;
-        }
-
-        .results-box ul { list-style: none; padding: 0; }
-        .results-box li { margin-bottom: 6px; line-height: 1.4; }
-
         canvas {
             width: 100%;
-            height: 520px;
+            height: 500px;
             background: #FFFFFF;
-            border: 1px solid var(--border);
-            border-radius: 12px;
+            border: 1px solid #CBD5E1;
+            border-radius: 10px;
             display: block;
         }
 
-        .hash-box {
+        .hash-bar {
             grid-column: 1 / -1;
-            background: var(--primary);
+            background: #132247;
             color: white;
-            padding: 18px;
-            border-radius: 12px;
+            padding: 16px;
+            border-radius: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .hash-box input {
+        .hash-input {
             background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
             color: #38BDF8;
             font-family: monospace;
             font-weight: bold;
-            padding: 8px 14px;
+            padding: 8px;
             border-radius: 6px;
-            width: 320px;
+            width: 250px;
             text-align: center;
-            font-size: 14px;
         }
 
         button {
-            background: var(--accent);
+            background: #0284C7;
             color: white;
             border: none;
-            padding: 9px 16px;
+            padding: 8px 16px;
             border-radius: 6px;
             font-weight: bold;
             cursor: pointer;
-            transition: background 0.2s;
         }
-        button:hover { background: #02649B; }
     </style>
 </head>
 <body>
 
     <header>
         <div>
-            <h1>C.A.D.I. BILINGUAL ACADEMY</h1>
-            <p>Departamento de Matemática • Prof. Emmanuel Melgar</p>
+            <h1 style="font-size: 18px;">C.A.D.I. BILINGUAL ACADEMY</h1>
+            <p style="font-size: 12px; color: #94A3B8;">Departamento de Matemática • Prof. Emmanuel Melgar</p>
         </div>
-        <div class="badge">SIMULADOR CONIC-11°</div>
+        <div style="background: #0284C7; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: bold;">
+            SIMULADOR 11°
+        </div>
     </header>
 
     <div class="container">
-        <!-- PANEL DE CONTROL -->
         <div class="panel">
-            <h2>Parámetros Analíticos</h2>
+            <h3 style="margin-bottom: 12px; color: #132247;">Parámetros Cónicas</h3>
             
             <div class="form-group">
-                <label for="conicType">Tipo de Cónica</label>
+                <label>Tipo de Cónica</label>
                 <select id="conicType" onchange="updateInputs()">
                     <option value="parabola">Parábola</option>
                     <option value="elipse">Elipse</option>
@@ -149,7 +118,7 @@
             </div>
 
             <div class="form-group">
-                <label for="orient">Orientación del Eje</label>
+                <label>Orientación</label>
                 <select id="orient" onchange="draw()">
                     <option value="vertical">Vertical</option>
                     <option value="horizontal">Horizontal</option>
@@ -157,45 +126,43 @@
             </div>
 
             <div class="form-group">
-                <label for="hVal">Centro / Vértice h (X)</label>
+                <label>Centro / Vértice h (X)</label>
                 <input type="number" id="hVal" value="0" step="1" oninput="draw()">
             </div>
 
             <div class="form-group">
-                <label for="kVal">Centro / Vértice k (Y)</label>
+                <label>Centro / Vértice k (Y)</label>
                 <input type="number" id="kVal" value="0" step="1" oninput="draw()">
             </div>
 
-            <div id="paramAGroup" class="form-group">
-                <label id="labelA" for="aVal">Parámetro p (Distancia Focal)</label>
+            <div class="form-group">
+                <label id="labelA">Parámetro p (Distancia Focal)</label>
                 <input type="number" id="aVal" value="3" step="0.5" oninput="draw()">
             </div>
 
-            <div id="paramBGroup" class="form-group" style="display:none;">
-                <label for="bVal">Semieje Menor / Conjugado (b)</label>
+            <div class="form-group" id="paramBGroup" style="display:none;">
+                <label>Semieje Menor / Conjugado (b)</label>
                 <input type="number" id="bVal" value="2" step="0.5" oninput="draw()">
             </div>
 
-            <div class="results-box">
-                <strong style="color:var(--primary); display:block; margin-bottom:6px;">Elementos Obtenidos:</strong>
-                <ul id="elementsList"></ul>
+            <div class="results">
+                <strong>Elementos Analíticos:</strong>
+                <ul id="elementsList" style="margin-top: 6px; padding-left: 16px;"></ul>
             </div>
         </div>
 
-        <!-- GRÁFICO CANVAS -->
         <div class="panel" style="padding: 10px;">
-            <canvas id="graphCanvas" width="800" height="520"></canvas>
+            <canvas id="graphCanvas" width="800" height="500"></canvas>
         </div>
 
-        <!-- HASH DE AUTENTICIDAD -->
-        <div class="hash-box">
+        <div class="hash-bar">
             <div>
-                <div style="font-weight: bold; font-size: 14px;">Validación de Misión Táctica</div>
-                <div style="font-size: 11px; color: #94A3B8;">Código único para reporte sumativo en Google Classroom</div>
+                <strong>Validación Táctica C.A.D.I.</strong>
+                <div style="font-size: 11px; color: #94A3B8;">Generación de Hash para reporte sumativo</div>
             </div>
-            <div style="display: flex; gap: 10px; align-items: center;">
-                <input type="text" id="studentName" placeholder="Nombre del Estudiante" style="width: 180px; color: white;" oninput="generateHash()">
-                <input type="text" id="hashOutput" readonly placeholder="HASH DE AUTENTICIDAD">
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="studentName" placeholder="Nombre Estudiante" style="padding: 8px; border-radius: 6px;" oninput="generateHash()">
+                <input type="text" id="hashOutput" class="hash-input" readonly placeholder="CÓDIGO HASH">
                 <button onclick="copyHash()">Copiar</button>
             </div>
         </div>
@@ -204,7 +171,7 @@
     <script>
         const canvas = document.getElementById('graphCanvas');
         const ctx = canvas.getContext('2d');
-        const scale = 20; // 20px por unidad en el plano Cartesian
+        const scale = 20;
 
         function updateInputs() {
             const type = document.getElementById('conicType').value;
@@ -236,7 +203,6 @@
                 ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
             }
 
-            // Ejes Cartesiano Principales
             ctx.strokeStyle = '#0F172A';
             ctx.lineWidth = 2;
             ctx.beginPath();
@@ -274,7 +240,6 @@
                     list.innerHTML += `<li><b>Vértice:</b> V(${h}, ${k})</li>`;
                     list.innerHTML += `<li><b>Foco:</b> F(${h}, ${k + p})</li>`;
                     list.innerHTML += `<li><b>Directriz:</b> y = ${k - p}</li>`;
-                    list.innerHTML += `<li><b>Lado Recto:</b> LR = ${Math.abs(4*p)} u</li>`;
                 } else {
                     for (let y = -20; y <= 20; y += 0.1) {
                         let x = Math.pow(y - k, 2) / (4 * p) + h;
@@ -284,32 +249,23 @@
                     list.innerHTML += `<li><b>Vértice:</b> V(${h}, ${k})</li>`;
                     list.innerHTML += `<li><b>Foco:</b> F(${h + p}, ${k})</li>`;
                     list.innerHTML += `<li><b>Directriz:</b> x = ${h - p}</li>`;
-                    list.innerHTML += `<li><b>Lado Recto:</b> LR = ${Math.abs(4*p)} u</li>`;
                 }
                 ctx.stroke();
 
             } else if (type === 'elipse') {
                 ctx.strokeStyle = '#0284C7';
                 ctx.beginPath();
-
                 let rx = orient === 'horizontal' ? a * scale : b * scale;
                 let ry = orient === 'horizontal' ? b * scale : a * scale;
-
                 ctx.ellipse(toCanvasX(h), toCanvasY(k), rx, ry, 0, 0, 2 * Math.PI);
                 ctx.stroke();
 
                 let c = Math.sqrt(Math.max(0, a*a - b*b));
-                let e = (c / a).toFixed(3);
-
                 list.innerHTML += `<li><b>Centro:</b> C(${h}, ${k})</li>`;
-                list.innerHTML += `<li><b>Semiejes:</b> a = ${a}, b = ${b}</li>`;
-                list.innerHTML += `<li><b>Distancia Focal (c):</b> ${c.toFixed(2)}</li>`;
-                list.innerHTML += `<li><b>Excentricidad (e):</b> ${e}</li>`;
+                list.innerHTML += `<li><b>Distancia Focal:</b> c = ${c.toFixed(2)}</li>`;
 
             } else if (type === 'hiperbola') {
                 ctx.strokeStyle = '#EA580C';
-                let c = Math.sqrt(a*a + b*b);
-
                 ctx.beginPath();
                 if (orient === 'horizontal') {
                     for (let t = -2; t <= 2; t += 0.05) {
@@ -324,4 +280,43 @@
                         let x2 = h - a * Math.cosh(t);
                         let y2 = k + b * Math.sinh(t);
                         if (t === -2) ctx.moveTo(toCanvasX(x2), toCanvasY(y2));
-                        else ctx.lineTo(toCanvasX(x2), toCanvasY(
+                        else ctx.lineTo(toCanvasX(x2), toCanvasY(y2));
+                    }
+                    ctx.stroke();
+                }
+                list.innerHTML += `<li><b>Centro:</b> C(${h}, ${k})</li>`;
+            }
+
+            ctx.fillStyle = '#132247';
+            ctx.beginPath();
+            ctx.arc(toCanvasX(h), toCanvasY(k), 5, 0, 2 * Math.PI);
+            ctx.fill();
+
+            generateHash();
+        }
+
+        function generateHash() {
+            const name = document.getElementById('studentName').value || 'ALUMNO';
+            const type = document.getElementById('conicType').value;
+            const h = document.getElementById('hVal').value;
+            const k = document.getElementById('kVal').value;
+            
+            const rawStr = `${name}-${type}-H${h}K${k}-CADI11`;
+            let hash = 0;
+            for (let i = 0; i < rawStr.length; i++) {
+                hash = (hash << 5) - hash + rawStr.charCodeAt(i);
+                hash |= 0;
+            }
+            document.getElementById('hashOutput').value = 'CADI-' + Math.abs(hash).toString(16).toUpperCase();
+        }
+
+        function copyHash() {
+            const hashField = document.getElementById('hashOutput');
+            navigator.clipboard.writeText(hashField.value);
+            alert('¡Código Hash copiado!');
+        }
+
+        updateInputs();
+    </script>
+</body>
+</html>
