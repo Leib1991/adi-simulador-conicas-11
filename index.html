@@ -3,212 +3,325 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador C.A.D.I. - Misión Cónicas 11</title>
+    <title>C.A.D.I. Academy - Simulador de Cónicas 11°</title>
     <style>
         :root {
-            --cadi-navy: #1B2A4A;
-            --cadi-green: #00A86B;
-            --cadi-light: #F4F7F9;
-            --white: #ffffff;
+            --primary: #132247;
+            --accent: #0284C7;
+            --bg: #F8FAFC;
+            --card-bg: #FFFFFF;
+            --text: #0F172A;
+            --border: #CBD5E1;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--cadi-light);
-            color: #333;
-            margin: 0;
-            padding: 20px;
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg); color: var(--text); padding: 20px; }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 12px;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            min-height: 100vh;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(19, 34, 71, 0.15);
         }
+
+        header h1 { font-size: 20px; font-weight: 800; letter-spacing: 0.5px; }
+        header p { font-size: 13px; color: #94A3B8; }
+        .badge { background: var(--accent); padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold; }
 
         .container {
-            background-color: var(--white);
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 20px;
+        }
+
+        .panel {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
             border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-            width: 100%;
-            max-width: 780px;
-            overflow: hidden;
-            border-top: 6px solid var(--cadi-green);
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
 
-        .header {
-            background-color: var(--cadi-navy);
-            color: var(--white);
-            padding: 20px 25px;
-            text-align: center;
-        }
-
-        .header h1 {
-            margin: 0;
-            font-size: 1.5rem;
+        .panel h2 {
+            font-size: 15px;
+            color: var(--primary);
+            border-bottom: 2px solid var(--bg);
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        .header p {
-            margin: 5px 0 0 0;
-            color: var(--cadi-green);
-            font-weight: bold;
-            font-size: 0.95rem;
-        }
-
-        .progress-bar-container {
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; font-size: 12px; font-weight: bold; color: #475569; margin-bottom: 4px; }
+        .form-group select, .form-group input {
             width: 100%;
-            background-color: #e0e0e0;
-            height: 8px;
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 13px;
         }
 
-        .progress-bar {
-            height: 100%;
-            background-color: var(--cadi-green);
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-
-        .content {
-            padding: 25px;
-        }
-
-        .step {
-            display: none;
-        }
-
-        .step.active {
-            display: block;
-        }
-
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: bold;
-            color: var(--cadi-navy);
-        }
-
-        input[type="text"], input[type="email"] {
-            width: 100%;
+        .results-box {
+            background: #F1F5F9;
+            border-radius: 8px;
             padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 6px;
-            font-size: 1rem;
-            box-sizing: border-box;
-            transition: border-color 0.3s;
+            margin-top: 15px;
+            font-size: 12.5px;
         }
 
-        input:focus {
-            border-color: var(--cadi-green);
-            outline: none;
-        }
+        .results-box ul { list-style: none; padding: 0; }
+        .results-box li { margin-bottom: 6px; line-height: 1.4; }
 
-        .btn {
-            background-color: var(--cadi-green);
-            color: var(--white);
-            border: none;
-            padding: 12px 24px;
-            font-size: 1rem;
-            font-weight: bold;
-            border-radius: 6px;
-            cursor: pointer;
+        canvas {
             width: 100%;
-            transition: background 0.3s;
-            margin-top: 15px;
+            height: 520px;
+            background: #FFFFFF;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            display: block;
         }
 
-        .btn:hover {
-            background-color: #008a57;
-        }
-
-        .scenario-box {
-            background-color: #eef4f8;
-            border-left: 4px solid var(--cadi-navy);
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 4px;
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-
-        .question-meta {
-            font-size: 0.85rem;
-            color: var(--cadi-green);
-            font-weight: bold;
-            text-transform: uppercase;
-            margin-bottom: 5px;
-        }
-
-        .options-group {
+        .hash-box {
+            grid-column: 1 / -1;
+            background: var(--primary);
+            color: white;
+            padding: 18px;
+            border-radius: 12px;
             display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .option-card {
-            border: 2px solid #e0e0e0;
-            padding: 12px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s;
-            background: #fafafa;
-            display: flex;
+            justify-content: space-between;
             align-items: center;
         }
 
-        .option-card:hover {
-            border-color: var(--cadi-green);
-            background: #f0fdf7;
-        }
-
-        .option-card input {
-            margin-right: 12px;
-        }
-
-        .certificate {
-            border: 3px double var(--cadi-navy);
-            padding: 25px;
-            text-align: center;
-            background-color: #fff;
-            border-radius: 8px;
-        }
-
-        .certificate h2 {
-            color: var(--cadi-navy);
-            margin-top: 0;
-        }
-
-        .score-badge {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: var(--cadi-green);
-            margin: 15px 0;
-        }
-
-        .verification-code {
-            background-color: var(--cadi-navy);
-            color: #fff;
-            padding: 8px 15px;
+        .hash-box input {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #38BDF8;
             font-family: monospace;
-            font-size: 1.1rem;
-            border-radius: 4px;
-            display: inline-block;
-            margin-top: 10px;
+            font-weight: bold;
+            padding: 8px 14px;
+            border-radius: 6px;
+            width: 320px;
+            text-align: center;
+            font-size: 14px;
         }
 
-        .footer-note {
-            font-size: 0.8rem;
-            color: #777;
-            text-align: center;
-            padding: 15px;
-            background-color: #fafafa;
-            border-top: 1px solid #eee;
+        button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 9px 16px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
         }
+        button:hover { background: #02649B; }
     </style>
 </head>
 <body>
 
-<div class="container">
+    <header>
+        <div>
+            <h1>C.A.D.I. BILINGUAL ACADEMY</h1>
+            <p>Departamento de Matemática • Prof. Emmanuel Melgar</p>
+        </div>
+        <div class="badge">SIMULADOR CONIC-11°</div>
+    </header>
+
+    <div class="container">
+        <!-- PANEL DE CONTROL -->
+        <div class="panel">
+            <h2>Parámetros Analíticos</h2>
+            
+            <div class="form-group">
+                <label for="conicType">Tipo de Cónica</label>
+                <select id="conicType" onchange="updateInputs()">
+                    <option value="parabola">Parábola</option>
+                    <option value="elipse">Elipse</option>
+                    <option value="hiperbola">Hipérbola</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="orient">Orientación del Eje</label>
+                <select id="orient" onchange="draw()">
+                    <option value="vertical">Vertical</option>
+                    <option value="horizontal">Horizontal</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="hVal">Centro / Vértice h (X)</label>
+                <input type="number" id="hVal" value="0" step="1" oninput="draw()">
+            </div>
+
+            <div class="form-group">
+                <label for="kVal">Centro / Vértice k (Y)</label>
+                <input type="number" id="kVal" value="0" step="1" oninput="draw()">
+            </div>
+
+            <div id="paramAGroup" class="form-group">
+                <label id="labelA" for="aVal">Parámetro p (Distancia Focal)</label>
+                <input type="number" id="aVal" value="3" step="0.5" oninput="draw()">
+            </div>
+
+            <div id="paramBGroup" class="form-group" style="display:none;">
+                <label for="bVal">Semieje Menor / Conjugado (b)</label>
+                <input type="number" id="bVal" value="2" step="0.5" oninput="draw()">
+            </div>
+
+            <div class="results-box">
+                <strong style="color:var(--primary); display:block; margin-bottom:6px;">Elementos Obtenidos:</strong>
+                <ul id="elementsList"></ul>
+            </div>
+        </div>
+
+        <!-- GRÁFICO CANVAS -->
+        <div class="panel" style="padding: 10px;">
+            <canvas id="graphCanvas" width="800" height="520"></canvas>
+        </div>
+
+        <!-- HASH DE AUTENTICIDAD -->
+        <div class="hash-box">
+            <div>
+                <div style="font-weight: bold; font-size: 14px;">Validación de Misión Táctica</div>
+                <div style="font-size: 11px; color: #94A3B8;">Código único para reporte sumativo en Google Classroom</div>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <input type="text" id="studentName" placeholder="Nombre del Estudiante" style="width: 180px; color: white;" oninput="generateHash()">
+                <input type="text" id="hashOutput" readonly placeholder="HASH DE AUTENTICIDAD">
+                <button onclick="copyHash()">Copiar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('graphCanvas');
+        const ctx = canvas.getContext('2d');
+        const scale = 20; // 20px por unidad en el plano Cartesian
+
+        function updateInputs() {
+            const type = document.getElementById('conicType').value;
+            const paramBGroup = document.getElementById('paramBGroup');
+            const labelA = document.getElementById('labelA');
+
+            if (type === 'parabola') {
+                paramBGroup.style.display = 'none';
+                labelA.innerText = 'Parámetro p (Distancia Focal)';
+            } else {
+                paramBGroup.style.display = 'block';
+                labelA.innerText = 'Semieje Mayor / Transverso (a)';
+            }
+            draw();
+        }
+
+        function toCanvasX(x) { return canvas.width / 2 + x * scale; }
+        function toCanvasY(y) { return canvas.height / 2 - y * scale; }
+
+        function drawGrid() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = '#E2E8F0';
+            ctx.lineWidth = 1;
+
+            for (let x = 0; x < canvas.width; x += scale) {
+                ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
+            }
+            for (let y = 0; y < canvas.height; y += scale) {
+                ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
+            }
+
+            // Ejes Cartesiano Principales
+            ctx.strokeStyle = '#0F172A';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(canvas.width / 2, 0); ctx.lineTo(canvas.width / 2, canvas.height);
+            ctx.moveTo(0, canvas.height / 2); ctx.lineTo(canvas.width, canvas.height / 2);
+            ctx.stroke();
+        }
+
+        function draw() {
+            drawGrid();
+
+            const type = document.getElementById('conicType').value;
+            const orient = document.getElementById('orient').value;
+            const h = parseFloat(document.getElementById('hVal').value) || 0;
+            const k = parseFloat(document.getElementById('kVal').value) || 0;
+            const a = parseFloat(document.getElementById('aVal').value) || 1;
+            const b = parseFloat(document.getElementById('bVal').value) || 1;
+
+            const list = document.getElementById('elementsList');
+            list.innerHTML = '';
+
+            ctx.lineWidth = 2.5;
+
+            if (type === 'parabola') {
+                const p = a;
+                ctx.strokeStyle = '#0284C7';
+                ctx.beginPath();
+
+                if (orient === 'vertical') {
+                    for (let x = -20; x <= 20; x += 0.1) {
+                        let y = Math.pow(x - h, 2) / (4 * p) + k;
+                        if (x === -20) ctx.moveTo(toCanvasX(x), toCanvasY(y));
+                        else ctx.lineTo(toCanvasX(x), toCanvasY(y));
+                    }
+                    list.innerHTML += `<li><b>Vértice:</b> V(${h}, ${k})</li>`;
+                    list.innerHTML += `<li><b>Foco:</b> F(${h}, ${k + p})</li>`;
+                    list.innerHTML += `<li><b>Directriz:</b> y = ${k - p}</li>`;
+                    list.innerHTML += `<li><b>Lado Recto:</b> LR = ${Math.abs(4*p)} u</li>`;
+                } else {
+                    for (let y = -20; y <= 20; y += 0.1) {
+                        let x = Math.pow(y - k, 2) / (4 * p) + h;
+                        if (y === -20) ctx.moveTo(toCanvasX(x), toCanvasY(y));
+                        else ctx.lineTo(toCanvasX(x), toCanvasY(y));
+                    }
+                    list.innerHTML += `<li><b>Vértice:</b> V(${h}, ${k})</li>`;
+                    list.innerHTML += `<li><b>Foco:</b> F(${h + p}, ${k})</li>`;
+                    list.innerHTML += `<li><b>Directriz:</b> x = ${h - p}</li>`;
+                    list.innerHTML += `<li><b>Lado Recto:</b> LR = ${Math.abs(4*p)} u</li>`;
+                }
+                ctx.stroke();
+
+            } else if (type === 'elipse') {
+                ctx.strokeStyle = '#0284C7';
+                ctx.beginPath();
+
+                let rx = orient === 'horizontal' ? a * scale : b * scale;
+                let ry = orient === 'horizontal' ? b * scale : a * scale;
+
+                ctx.ellipse(toCanvasX(h), toCanvasY(k), rx, ry, 0, 0, 2 * Math.PI);
+                ctx.stroke();
+
+                let c = Math.sqrt(Math.max(0, a*a - b*b));
+                let e = (c / a).toFixed(3);
+
+                list.innerHTML += `<li><b>Centro:</b> C(${h}, ${k})</li>`;
+                list.innerHTML += `<li><b>Semiejes:</b> a = ${a}, b = ${b}</li>`;
+                list.innerHTML += `<li><b>Distancia Focal (c):</b> ${c.toFixed(2)}</li>`;
+                list.innerHTML += `<li><b>Excentricidad (e):</b> ${e}</li>`;
+
+            } else if (type === 'hiperbola') {
+                ctx.strokeStyle = '#EA580C';
+                let c = Math.sqrt(a*a + b*b);
+
+                ctx.beginPath();
+                if (orient === 'horizontal') {
+                    for (let t = -2; t <= 2; t += 0.05) {
+                        let x1 = h + a * Math.cosh(t);
+                        let y1 = k + b * Math.sinh(t);
+                        if (t === -2) ctx.moveTo(toCanvasX(x1), toCanvasY(y1));
+                        else ctx.lineTo(toCanvasX(x1), toCanvasY(y1));
+                    }
+                    ctx.stroke();
+                    ctx.beginPath();
+                    for (let t = -2; t <= 2; t += 0.05) {
+                        let x2 = h - a * Math.cosh(t);
+                        let y2 = k + b * Math.sinh(t);
+                        if (t === -2) ctx.moveTo(toCanvasX(x2), toCanvasY(y2));
+                        else ctx.lineTo(toCanvasX(x2), toCanvasY(
